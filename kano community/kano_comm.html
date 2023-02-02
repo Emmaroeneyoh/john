@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <!-- CSS only -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css" integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ==" crossorigin="" />
+    <link rel="stylesheet" href="./lib/leaflet.fullscreen.css">
+    <link rel="stylesheet" href="./leaflet/MarkerCluster.css">
+    <link rel="stylesheet" href="./leaflet/MarkerCluster.Default.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+    <title>Document</title>
+</head>
+<body>
+  
+  <nav class="navbar navbar-expand-lg bg-body-tertiary" style="background-color: black;">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#" style="color: aliceblue;"><b>KANO COMMUNITIES</b></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" style="background-color: aliceblue;">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" href="../index.html" style="color: aliceblue;">HOME</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: aliceblue;">
+              LGAs
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="../siwes-main/ajingi.html">AJINGI</a></li>
+              <li><a class="dropdown-item" href="#">ALBASU</a></li>
+              <li><a class="dropdown-item" href="#">BAGWAI</a></li>
+              <li><a class="dropdown-item" href="#">BEBEJI</a></li>
+              <li><a class="dropdown-item" href="#">BICHI</a></li>
+              <li><a class="dropdown-item" href="#">BUNKURE</a></li>
+              <li><a class="dropdown-item" href="#">DAWAKIN KUDU</a></li>
+              <li><a class="dropdown-item" href="#">GABASAWA</a></li>
+              <li><a class="dropdown-item" href="#">GARUN MALAM</a></li>
+              <li><a class="dropdown-item" href="#">GEZAWA</a></li>
+              <li><a class="dropdown-item" href="#">GWARZO</a></li>
+              <li><a class="dropdown-item" href="#">KARAYE</a></li>
+              <li><a class="dropdown-item" href="#">KIBIYA</a></li>
+              <li><a class="dropdown-item" href="#">KIRU</a></li>
+              <li><a class="dropdown-item" href="#">KUNCHI</a></li>
+            </ul>
+          </li>
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: aliceblue;">
+              INFRASTRUCTURES
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="../kano market/kano_market.html">MARKET</a></li>
+              <li><a class="dropdown-item" href="#">SCHOOL</a></li>
+              <li><a class="dropdown-item" href="#">HOSPITAL</a></li>
+              <li><a class="dropdown-item" href="../kano motor park/kano_park.html">MOTOR PARK</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+  </nav>
+
+    <div id="map">
+        <!-- map coordinate -->
+        <div class="leaflet-control map-coordinate">
+            <div class="coordinate"></div>
+        </div>
+        <div class="leaflet-control zoom-to-layer">
+            <svg xmlns="http://www.w3.org/2000/svg" width="1.6em" height="1.6em" fill="currentColor" class="bi bi-house-door" viewBox="0 0 16 16">
+                <path d="M8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4.5a.5.5 0 0 0 .5-.5v-4h2v4a.5.5 0 0 0 .5.5H14a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146ZM2.5 14V7.707l5.5-5.5 5.5 5.5V14H10v-4a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v4H2.5Z"/>
+              </svg>
+        </div>
+    </div>
+    <!-- <button onclick=fullScreenview()>View in full screen</button>  -->
+<!-- zoom to layer -->
+
+   <!-- <button class="zoom-to-layer">Zoom to Layer</button> -->
+   <footer style="background-color: black; color: aliceblue; text-align: center; padding: 2px;"> <b> &copy;  JEGRAL COMPANY </b> </footer>
+</body>
+</html>
+<!-- JavaScript Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js" integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ==" crossorigin=""></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="./lib/leaflet.browser.print.min.js"></script>
+<script src="./lib/Leaflet.fullscreen.min.js"></script>
+<script src="./leaflet/leaflet.markercluster.js"></script>
+<script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+<script src="./test.js"></script>
+<script>
+    // map class initialize
+    var map = L.map('map').setView([12.0022, 8.5920], 10);
+    map.zoomControl.setPosition('topright');
+
+    //adding osm tilelayer
+    var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+}).addTo(map);
+
+var TopoMap = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
+	maxZoom: 17,
+	attribution: 'Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
+});
+
+var OpenStreetMap = L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
+	maxZoom: 20,
+	attribution: '&copy; OpenStreetMap France | &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+});
+
+
+
+//Adding marker in the center of the map
+// L.marker([12.0022, 8.5920]).addTo(map)
+//     .bindPopup('A pretty CSS3 popup.<br> Easily customizable.')
+//     .openPopup();
+
+    // add map scale
+    L.control.scale().addTo(map)
+
+    
+    // Full screen map
+    var mapId = document.getElementById('map');
+    function fullScreenview(){
+        mapId.requestFullscreen();
+    }
+    
+
+  
+// // Create a new map with a fullscreen button:
+// var map = new L.Map('map', {
+//     fullscreenControl: true,
+//     // OR
+//     fullscreenControl: {
+//         pseudoFullscreen: false // if true, fullscreen to page width and height
+//     }
+// });
+
+// or, add to an existing map:
+map.addControl(new L.Control.Fullscreen());
+
+// hospital
+
+// var myIcon = L.icon({
+    // iconUrl: './img/hospi.png',
+    // iconSize: [8, 8],
+// });
+// L.marker([11.902959,	8.513718], {icon: myIcon}).addTo(map);
+// L.marker([11.892673,	8.499732], {icon: myIcon}).addTo(map);
+// L.marker([12.17974,	8.654924], {icon: myIcon}).addTo(map);
+// L.marker([12.179849,	8.662181], {icon: myIcon}).addTo(map);
+// L.marker([12.174808,	8.659641], {icon: myIcon}).addTo(map);
+// L.marker([12.174787,	8.696709], {icon: myIcon}).addTo(map);
+// L.marker([11.971794,	8.247681], {icon: myIcon}).addTo(map);
+// L.marker([11.971794,	8.247681], {icon: myIcon}).addTo(map);
+// L.marker([11.683456,	8.366493], {icon: myIcon}).addTo(map);
+// L.marker([11.943757,	8.339281], {icon: myIcon}).addTo(map);
+// L.marker([11.876622,	8.747074], {icon: myIcon}).addTo(map);
+// L.marker([11.733897,	8.183965], {icon: myIcon}).addTo(map);
+// L.marker([11.748443,	8.138671], {icon: myIcon}).addTo(map);
+// L.marker([11.77726,	8.022193], {icon: myIcon}).addTo(map);
+// L.marker([11.83294,	8.039564], {icon: myIcon}).addTo(map);
+// L.marker([11.811492,	8.029191], {icon: myIcon}).addTo(map);
+// L.marker([11.644455,	8.411506], {icon: myIcon}).addTo(map);
+// L.marker([11.644107,	8.419738], {icon: myIcon}).addTo(map);
+// L.marker([11.663971,	8.382215], {icon: myIcon}).addTo(map);
+// L.marker([11.686496,	7.946594], {icon: myIcon}).addTo(map);
+// L.marker([11.786604,	7.991401], {icon: myIcon}).addTo(map);
+// L.marker([11.827408,	7.990992], {icon: myIcon}).addTo(map);
+// L.marker([11.816265,	8.002011], {icon: myIcon}).addTo(map);
+// L.marker([11.760767,	7.996398], {icon: myIcon}).addTo(map);
+// L.marker([11.71967,	7.949153], {icon: myIcon}).addTo(map);
+// L.marker([12.308909,	8.216332], {icon: myIcon}).addTo(map);
+// L.marker([12.266569,	8.201111], {icon: myIcon}).addTo(map);
+// L.marker([12.264473,	8.249679], {icon: myIcon}).addTo(map);
+// L.marker([12.25743,	8.16922], {icon: myIcon}).addTo(map);
+// L.marker([12.274371,	8.155852], {icon: myIcon}).addTo(map);
+// L.marker([12.181757,	8.594288], {icon: myIcon}).addTo(map);
+// L.marker([12.297326,	8.673567], {icon: myIcon}).addTo(map);
+// L.marker([12.251191,	8.699863], {icon: myIcon}).addTo(map);
+// L.marker([12.363667,	8.40532], {icon: myIcon}).addTo(map);
+// L.marker([12.50241,	8.274599], {icon: myIcon}).addTo(map);
+// L.marker([12.155051,	8.616493], {icon: myIcon}).addTo(map);
+// L.marker([12.213395,	8.182455], {icon: myIcon}).addTo(map);
+// L.marker([12.242942,	8.174493], {icon: myIcon}).addTo(map);
+// L.marker([12.211,	8.133363], {icon: myIcon}).addTo(map);
+// L.marker([12.189226,	8.190895], {icon: myIcon}).addTo(map);
+// L.marker([11.720842,	8.539155], {icon: myIcon}).addTo(map);
+// L.marker([11.669348,	8.542533], {icon: myIcon}).addTo(map);
+// L.marker([11.704223,	8.541375], {icon: myIcon}).addTo(map);
+// L.marker([11.700812,	8.588619], {icon: myIcon}).addTo(map);
+// L.marker([12.129751,	7.984739], {icon: myIcon}).addTo(map);
+// L.marker([12.178196,	7.984499], {icon: myIcon}).addTo(map);
+// L.marker([12.079609,	7.948227], {icon: myIcon}).addTo(map);
+// L.marker([12.114751,	7.965985], {icon: myIcon}).addTo(map);
+// L.marker([12.006153,	8.054259], {icon: myIcon}).addTo(map);
+// L.marker([11.89916,	8.278376], {icon: myIcon}).addTo(map);
+// L.marker([11.867717,	8.295969], {icon: myIcon}).addTo(map);
+// L.marker([11.640055,	8.406183], {icon: myIcon}).addTo(map);
+// L.marker([11.710919,	8.197456], {icon: myIcon}).addTo(map);
+// L.marker([11.831763,	8.123223], {icon: myIcon}).addTo(map);
+// L.marker([11.865988,	8.300494], {icon: myIcon}).addTo(map);
+// L.marker([11.874389,	8.327897], {icon: myIcon}).addTo(map);
+// L.marker([11.417832,	8.481404], {icon: myIcon}).addTo(map);
+// L.marker([11.655935,	8.193131], {icon: myIcon}).addTo(map);
+// L.marker([11.706983,	8.134961], {icon: myIcon}).addTo(map);
+// L.marker([11.620377,	8.18467], {icon: myIcon}).addTo(map);
+// L.marker([11.843692,	8.05734], {icon: myIcon}).addTo(map);
+// L.marker([11.806455,	8.063993], {icon: myIcon}).addTo(map);
+// L.marker([11.823733,	8.092508], {icon: myIcon}).addTo(map);
+// L.marker([11.767396,	7.88855], {icon: myIcon}).addTo(map);
+// L.marker([11.856524,	8.74032], {icon: myIcon}).addTo(map);
+// L.marker([11.733285,	7.931156], {icon: myIcon}).addTo(map);
+// L.marker([11.72419,	7.902038], {icon: myIcon}).addTo(map);
+// L.marker([12.486419,	8.23823], {icon: myIcon}).addTo(map);
+// L.marker([12.452841,	8.235478], {icon: myIcon}).addTo(map);
+// L.marker([12.12476,	8.598719], {icon: myIcon}).addTo(map);
+// L.marker([11.785689,	7.959711], {icon: myIcon}).addTo(map);
+// L.marker([11.367771,	8.591266], {icon: myIcon}).addTo(map);
+// L.marker([11.949891,	8.609373], {icon: myIcon}).addTo(map);
+// L.marker([11.898041,	8.342843], {icon: myIcon}).addTo(map);
+// L.marker([11.922018,	8.377039], {icon: myIcon}).addTo(map);
+// L.marker([11.919114,	8.332062], {icon: myIcon}).addTo(map);
+// L.marker([12.153826,	8.676109], {icon: myIcon}).addTo(map);
+// L.marker([12.222693,	8.707106], {icon: myIcon}).addTo(map);
+// L.marker([12.222693,	8.707106], {icon: myIcon}).addTo(map);
+// L.marker([12.10048,	8.751162], {icon: myIcon}).addTo(map);
+// L.marker([11.683383,	8.422167], {icon: myIcon}).addTo(map);
+// L.marker([11.713423,	8.42393], {icon: myIcon}).addTo(map);
+// L.marker([11.695708,	8.355169], {icon: myIcon}).addTo(map);
+// L.marker([11.713441,	8.361434], {icon: myIcon}).addTo(map);
+// L.marker([11.695208,	8.437903], {icon: myIcon}).addTo(map);
+// L.marker([11.733535,	8.4529], {icon: myIcon}).addTo(map);
+// L.marker([11.706945,	8.362426], {icon: myIcon}).addTo(map);
+// L.marker([11.624858,	8.415234], {icon: myIcon}).addTo(map);
+// L.marker([11.616006,	8.38131], {icon: myIcon}).addTo(map);
+// L.marker([11.629144,	8.410834], {icon: myIcon}).addTo(map);
+// L.marker([11.687373,	8.146899], {icon: myIcon}).addTo(map);
+// L.marker([11.709631,	8.167275], {icon: myIcon}).addTo(map);
+// L.marker([12.048488,	8.743533], {icon: myIcon}).addTo(map);
+// L.marker([12.068205,	8.750547], {icon: myIcon}).addTo(map);
+// L.marker([11.917701,	8.425045], {icon: myIcon}).addTo(map);
+// L.marker([11.891266,	8.427121], {icon: myIcon}).addTo(map);
+// L.marker([11.870877,	8.766327], {icon: myIcon}).addTo(map);
+// L.marker([11.925025,	8.762732], {icon: myIcon}).addTo(map);
+// L.marker([11.680907,	8.202618], {icon: myIcon}).addTo(map);
+// L.marker([11.705973,	8.128607], {icon: myIcon}).addTo(map);
+// L.marker([12.061983,	8.27166], {icon: myIcon}).addTo(map);
+// L.marker([11.617307,	9.215829], {icon: myIcon}).addTo(map);
+// L.marker([11.61891,	9.214916], {icon: myIcon}).addTo(map);
+// L.marker([11.697993,	8.047747], {icon: myIcon}).addTo(map);
+// L.marker([11.725966,	7.972125], {icon: myIcon}).addTo(map);
+// L.marker([11.604102,	9.047917], {icon: myIcon}).addTo(map);
+// L.marker([11.557637,	9.057906], {icon: myIcon}).addTo(map);
+// L.marker([11.632169,	9.059258], {icon: myIcon}).addTo(map);
+// L.marker([11.920037,	8.266795], {icon: myIcon}).addTo(map);
+// L.marker([11.892627,	8.366058], {icon: myIcon}).addTo(map);
+// L.marker([11.894643,	8.375739], {icon: myIcon}).addTo(map);
+// L.marker([11.883589,	8.350174], {icon: myIcon}).addTo(map);
+// L.marker([11.798801,	7.941248], {icon: myIcon}).addTo(map);
+// L.marker([11.771656,	7.86735], {icon: myIcon}).addTo(map);
+// L.marker([12.11774,	8.627063], {icon: myIcon}).addTo(map);
+// L.marker([12.026293,	8.698825], {icon: myIcon}).addTo(map);
+// L.marker([12.275855,	8.396266], {icon: myIcon}).addTo(map);
+// L.marker([12.248657,	8.396995], {icon: myIcon}).addTo(map);
+// L.marker([12.244328,	8.287556], {icon: myIcon}).addTo(map);
+// L.marker([12.269043,	8.293126], {icon: myIcon}).addTo(map);
+// L.marker([11.438446,	8.462302], {icon: myIcon}).addTo(map);
+// L.marker([11.432782,	8.526929], {icon: myIcon}).addTo(map);
+// L.marker([11.393539,	8.53879], {icon: myIcon}).addTo(map);
+// L.marker([11.676934,	8.6292], {icon: myIcon}).addTo(map);
+// L.marker([11.69756,	8.496548], {icon: myIcon}).addTo(map);
+// L.marker([11.563551,	8.452065], {icon: myIcon}).addTo(map);
+// L.marker([11.605683,	8.434028], {icon: myIcon}).addTo(map);
+// L.marker([11.730844,	8.391149], {icon: myIcon}).addTo(map);
+// L.marker([11.736899,	8.414087], {icon: myIcon}).addTo(map);
+// L.marker([11.72688,	8.416082], {icon: myIcon}).addTo(map);
+// L.marker([11.700629,	8.417289], {icon: myIcon}).addTo(map);
+// L.marker([11.668794,	8.415434], {icon: myIcon}).addTo(map);
+// L.marker([11.749831,	8.555399], {icon: myIcon}).addTo(map);
+// L.marker([12.196301,	8.626554], {icon: myIcon}).addTo(map);
+// L.marker([12.223158,	8.62427], {icon: myIcon}).addTo(map);
+// L.marker([12.217243,	8.663018], {icon: myIcon}).addTo(map);
+// L.marker([12.010938,	8.231262], {icon: myIcon}).addTo(map);
+// L.marker([12.002264,	7.973107], {icon: myIcon}).addTo(map);
+// L.marker([11.97107,	7.904506], {icon: myIcon}).addTo(map);
+// L.marker([12.126509,	7.936205], {icon: myIcon}).addTo(map);
+// L.marker([12.02683,	7.945785], {icon: myIcon}).addTo(map);
+// L.marker([12.158205,	7.872411], {icon: myIcon}).addTo(map);
+// L.marker([12.170501,	7.91705], {icon: myIcon}).addTo(map);
+// L.marker([12.043271,	7.889282], {icon: myIcon}).addTo(map);
+// L.marker([12.20341,	7.876283], {icon: myIcon}).addTo(map);
+// L.marker([12.196145,	8.590144], {icon: myIcon}).addTo(map);
+// L.marker([12.23873,     8.642975], {icon: myIcon}).addTo(map);
+// L.marker([12.238467,	8.616113], {icon: myIcon}).addTo(map);
+// L.marker([12.247478,	8.596344], {icon: myIcon}).addTo(map);
+// L.marker([12.169571,	8.529762], {icon: myIcon}).addTo(map);
+// L.marker([12.103592,	8.888804], {icon: myIcon}).addTo(map);
+// L.marker([12.236725,	8.781365], {icon: myIcon}).addTo(map);
+// L.marker([11.927187,	8.611177], {icon: myIcon}).addTo(map);
+// L.marker([11.960985,	8.604745], {icon: myIcon}).addTo(map);
+// L.marker([12.064317,	8.857225], {icon: myIcon}).addTo(map);
+// L.marker([12.245025,	8.826291], {icon: myIcon}).addTo(map);
+// L.marker([12.207014,	8.843273], {icon: myIcon}).addTo(map);
+// L.marker([11.999589,	8.876012], {icon: myIcon}).addTo(map);
+// L.marker([12.166189,	8.754468], {icon: myIcon}).addTo(map);
+// L.marker([12.196694,	8.7587], {icon: myIcon}).addTo(map);
+// L.marker([11.67717,	8.128717], {icon: myIcon}).addTo(map);
+// L.marker([12.423556,	8.2769], {icon: myIcon}).addTo(map);
+// L.marker([12.473563,	8.26985], {icon: myIcon}).addTo(map);
+// L.marker([12.372917,	8.281958], {icon: myIcon}).addTo(map);
+// L.marker([12.401623,	8.313414], {icon: myIcon}).addTo(map);
+// L.marker([11.623157,	8.172101], {icon: myIcon}).addTo(map);
+// L.marker([11.655478,	8.164159], {icon: myIcon}).addTo(map);
+// L.marker([11.923482,	8.596189], {icon: myIcon}).addTo(map);
+// L.marker([11.926831,	8.580171], {icon: myIcon}).addTo(map);
+// L.marker([11.910213,	8.567121], {icon: myIcon}).addTo(map);
+// L.marker([12.200431,	8.543106], {icon: myIcon}).addTo(map);
+// L.marker([12.159617,	8.510459], {icon: myIcon}).addTo(map);
+// L.marker([12.187927,	8.508155], {icon: myIcon}).addTo(map);
+// L.marker([11.939789,	8.456362], {icon: myIcon}).addTo(map);
+// L.marker([11.955398,	8.424921], {icon: myIcon}).addTo(map);
+// L.marker([11.501639,	8.575037], {icon: myIcon}).addTo(map);
+// L.marker([11.549895,	8.578427], {icon: myIcon}).addTo(map);
+// L.marker([12.221093,	8.535409], {icon: myIcon}).addTo(map);
+// L.marker([11.708784,	8.969516], {icon: myIcon}).addTo(map);
+// L.marker([11.717691,	9.011339], {icon: myIcon}).addTo(map);
+// L.marker([11.723822,	8.932491], {icon: myIcon}).addTo(map);
+// L.marker([11.710028,	8.920043], {icon: myIcon}).addTo(map);
+// L.marker([12.138175,	8.55144], {icon: myIcon}).addTo(map);
+// L.marker([12.435849,	8.222363], {icon: myIcon}).addTo(map);
+// L.marker([12.424419,	8.173136], {icon: myIcon}).addTo(map);
+// L.marker([12.45545,	8.346626], {icon: myIcon}).addTo(map);
+// L.marker([12.346922,	8.328899], {icon: myIcon}).addTo(map);
+// L.marker([12.372119,	8.305784], {icon: myIcon}).addTo(map);
+// L.marker([11.99607,	8.228188], {icon: myIcon}).addTo(map);
+// L.marker([12.020478,	8.278861], {icon: myIcon}).addTo(map);
+// L.marker([11.953041,	8.309988], {icon: myIcon}).addTo(map);
+// L.marker([11.583795,	8.652084], {icon: myIcon}).addTo(map);
+// L.marker([12.323303,	8.462743], {icon: myIcon}).addTo(map);
+// L.marker([12.281568,	8.498269], {icon: myIcon}).addTo(map);
+// L.marker([12.35504,	8.496281], {icon: myIcon}).addTo(map);
+// L.marker([12.421991,	8.395272], {icon: myIcon}).addTo(map);
+// L.marker([12.268019,	8.529689], {icon: myIcon}).addTo(map);
+// L.marker([12.422866,	8.428336], {icon: myIcon}).addTo(map);
+// L.marker([12.275206,	8.570446], {icon: myIcon}).addTo(map);
+// L.marker([12.335915,	8.445038], {icon: myIcon}).addTo(map);
+// L.marker([12.372208,	8.438015], {icon: myIcon}).addTo(map);
+// L.marker([12.345708,	8.517681], {icon: myIcon}).addTo(map);
+// L.marker([12.391623,	8.483635], {icon: myIcon}).addTo(map);
+// L.marker([12.385065,	8.460192], {icon: myIcon}).addTo(map);
+// L.marker([12.343567,	8.477349], {icon: myIcon}).addTo(map);
+// L.marker([11.505909,	8.713033], {icon: myIcon}).addTo(map);
+// L.marker([11.522197,	8.66337], {icon: myIcon}).addTo(map);
+// L.marker([11.747384,	8.394248], {icon: myIcon}).addTo(map);
+// L.marker([11.927928,	8.513157], {icon: myIcon}).addTo(map);
+// L.marker([11.953166,	8.514902], {icon: myIcon}).addTo(map);
+// L.marker([11.939456,	8.226179], {icon: myIcon}).addTo(map);
+// L.marker([11.965763,	8.211721], {icon: myIcon}).addTo(map);
+// L.marker([11.99355,	8.662109], {icon: myIcon}).addTo(map);
+// L.marker([12.033182,	8.661691], {icon: myIcon}).addTo(map);
+// L.marker([11.886167,	8.815532], {icon: myIcon}).addTo(map);
+// L.marker([11.893973,	8.854734], {icon: myIcon}).addTo(map);
+// L.marker([12.02594,	8.673331], {icon: myIcon}).addTo(map);
+// L.marker([11.983305,	8.620923], {icon: myIcon}).addTo(map);
+// L.marker([12.052774,	8.701259], {icon: myIcon}).addTo(map);
+// L.marker([11.957862,	8.783142], {icon: myIcon}).addTo(map);
+// L.marker([11.498461,	8.044122], {icon: myIcon}).addTo(map);
+// L.marker([12.028971,	8.258915], {icon: myIcon}).addTo(map);
+// L.marker([12.025463,	8.316908], {icon: myIcon}).addTo(map);
+// L.marker([12.027431,	8.368579], {icon: myIcon}).addTo(map);
+// L.marker([12.04241,	8.316406], {icon: myIcon}).addTo(map);
+// L.marker([12.020253,	8.30742], {icon: myIcon}).addTo(map);
+// L.marker([11.991486,	8.303549], {icon: myIcon}).addTo(map);
+// L.marker([12.090718,	8.264545], {icon: myIcon}).addTo(map);
+// L.marker([11.9469,	8.499214], {icon: myIcon}).addTo(map);
+// L.marker([11.664551,	9.206895], {icon: myIcon}).addTo(map);
+// L.marker([11.683309,	9.213018], {icon: myIcon}).addTo(map);
+// L.marker([11.729688,	9.223669], {icon: myIcon}).addTo(map);
+// L.marker([11.719746,	8.104983], {icon: myIcon}).addTo(map);
+// L.marker([12.21814,	8.524402], {icon: myIcon}).addTo(map);
+// L.marker([12.458999,	8.329166], {icon: myIcon}).addTo(map);
+// L.marker([12.48937,	8.221417], {icon: myIcon}).addTo(map);
+// L.marker([11.613706,	9.001612], {icon: myIcon}).addTo(map);
+// L.marker([11.954527,	8.531163], {icon: myIcon}).addTo(map);
+// L.marker([11.598168,	7.986954], {icon: myIcon}).addTo(map);
+// L.marker([11.635102,	8.015658], {icon: myIcon}).addTo(map);
+// L.marker([11.984299,	8.282798], {icon: myIcon}).addTo(map);
+// L.marker([11.979829,	8.163507], {icon: myIcon}).addTo(map);
+// L.marker([11.963431,	8.179622], {icon: myIcon}).addTo(map);
+// L.marker([11.967138,	8.195532], {icon: myIcon}).addTo(map);
+// L.marker([11.469208,	8.504231], {icon: myIcon}).addTo(map);
+// L.marker([12.413734,	8.329856], {icon: myIcon}).addTo(map);
+// L.marker([12.430016,	8.352459], {icon: myIcon}).addTo(map);
+// L.marker([12.177244,	8.235802], {icon: myIcon}).addTo(map);
+// L.marker([12.301459,	8.443718], {icon: myIcon}).addTo(map);
+// L.marker([12.191,	8.224567], {icon: myIcon}).addTo(map);
+// L.marker([12.197507,	8.273234], {icon: myIcon}).addTo(map);
+// L.marker([12.235759,	8.237697], {icon: myIcon}).addTo(map);
+// L.marker([12.051683,	8.076145], {icon: myIcon}).addTo(map);
+// L.marker([11.997812,	8.06648], {icon: myIcon}).addTo(map);
+// L.marker([12.002507,	8.097062], {icon: myIcon}).addTo(map);
+// L.marker([12.125411,	7.875326], {icon: myIcon}).addTo(map);
+// L.marker([12.026739,	8.017899], {icon: myIcon}).addTo(map);
+// L.marker([12.094567,	7.879953], {icon: myIcon}).addTo(map);
+// L.marker([12.051718,	8.076128], {icon: myIcon}).addTo(map);
+// L.marker([12.183352,	7.937731], {icon: myIcon}).addTo(map);
+// L.marker([12.033342,	8.113847], {icon: myIcon}).addTo(map);
+// L.marker([11.660959,	8.414777], {icon: myIcon}).addTo(map);
+// L.marker([11.726435,	8.380499], {icon: myIcon}).addTo(map);
+// L.marker([11.721923,	8.368061], {icon: myIcon}).addTo(map);
+// L.marker([11.739322,	8.376586], {icon: myIcon}).addTo(map);
+// L.marker([12.113493,	8.897087], {icon: myIcon}).addTo(map);
+// L.marker([12.223114,	8.809706], {icon: myIcon}).addTo(map);
+// L.marker([12.193193,	8.805199], {icon: myIcon}).addTo(map);
+// L.marker([12.204281,	8.884272], {icon: myIcon}).addTo(map);
+// L.marker([12.206632,	8.319827], {icon: myIcon}).addTo(map);
+// L.marker([12.23187,	8.332923], {icon: myIcon}).addTo(map);
+// L.marker([12.193838,	8.339238], {icon: myIcon}).addTo(map);
+// L.marker([12.254941,	8.470717], {icon: myIcon}).addTo(map);
+// L.marker([12.114413,	8.779947], {icon: myIcon}).addTo(map);
+// L.marker([12.105862,	8.823043], {icon: myIcon}).addTo(map);
+// L.marker([11.57676,	8.754286], {icon: myIcon}).addTo(map);
+// L.marker([11.500223,	8.671969], {icon: myIcon}).addTo(map);
+// L.marker([12.055021,	8.297176], {icon: myIcon}).addTo(map);
+// L.marker([12.081105,	8.282247], {icon: myIcon}).addTo(map);
+// L.marker([12.037092,	8.763553], {icon: myIcon}).addTo(map);
+// L.marker([12.300448,	8.149186], {icon: myIcon}).addTo(map);
+// L.marker([12.321579,	8.159571], {icon: myIcon}).addTo(map);
+// L.marker([12.380542,	8.147565], {icon: myIcon}).addTo(map);
+// L.marker([12.399891,	8.15365], {icon: myIcon}).addTo(map);
+// L.marker([12.339998,	8.148081], {icon: myIcon}).addTo(map);
+// L.marker([11.938149,	8.730341], {icon: myIcon}).addTo(map);
+// L.marker([11.833249,	8.794148], {icon: myIcon}).addTo(map);
+// L.marker([11.807308,	8.823227], {icon: myIcon}).addTo(map);
+// L.marker([12.378007,	8.210242], {icon: myIcon}).addTo(map);
+// L.marker([12.358108,	8.192917], {icon: myIcon}).addTo(map);
+// L.marker([11.940115,	8.567853], {icon: myIcon}).addTo(map);
+// L.marker([11.65875,	8.71947], {icon: myIcon}).addTo(map);
+// L.marker([11.68637,	8.585387], {icon: myIcon}).addTo(map);
+// L.marker([11.681345,	8.752924], {icon: myIcon}).addTo(map);
+// L.marker([11.643081,	8.651501], {icon: myIcon}).addTo(map);
+// L.marker([11.675371,	8.449352], {icon: myIcon}).addTo(map);
+// L.marker([11.666159,	8.712158], {icon: myIcon}).addTo(map);
+// L.marker([11.708045,	8.465978], {icon: myIcon}).addTo(map);
+// L.marker([11.633885,	8.496858], {icon: myIcon}).addTo(map);
+// L.marker([11.724331,	8.504711], {icon: myIcon}).addTo(map);
+// L.marker([11.667306,	8.745594], {icon: myIcon}).addTo(map);
+// L.marker([11.719725,	8.595779], {icon: myIcon}).addTo(map);
+// L.marker([11.705005,	8.63025], {icon: myIcon}).addTo(map);
+// L.marker([11.709753,	8.494806], {icon: myIcon}).addTo(map);
+// L.marker([11.64201,	8.746807], {icon: myIcon}).addTo(map);
+// L.marker([11.603803,	8.485663], {icon: myIcon}).addTo(map);
+// L.marker([11.593288,	8.474561], {icon: myIcon}).addTo(map);
+// L.marker([11.63106,	8.521346], {icon: myIcon}).addTo(map);
+// L.marker([11.462055,	8.587355], {icon: myIcon}).addTo(map);
+// L.marker([11.574807,	8.611113], {icon: myIcon}).addTo(map);
+// L.marker([11.411771,	8.482914], {icon: myIcon}).addTo(map);
+// L.marker([11.538301,	8.499102], {icon: myIcon}).addTo(map);
+// L.marker([11.985121,	8.734693], {icon: myIcon}).addTo(map);
+// L.marker([11.594452,	8.080931], {icon: myIcon}).addTo(map);
+// L.marker([11.37374,	8.169391], {icon: myIcon}).addTo(map);
+// L.marker([11.377662,	8.2744], {icon: myIcon}).addTo(map);
+// L.marker([11.59449,	8.080936], {icon: myIcon}).addTo(map);
+// L.marker([12.447093,	8.205351], {icon: myIcon}).addTo(map);
+// L.marker([12.407603,	8.222398], {icon: myIcon}).addTo(map);
+// L.marker([11.751865,	8.231215], {icon: myIcon}).addTo(map);
+// L.marker([12.550294,	8.267646], {icon: myIcon}).addTo(map);
+// L.marker([12.57745,	8.243692], {icon: myIcon}).addTo(map);
+// L.marker([12.583558,	8.27178], {icon: myIcon}).addTo(map);
+// L.marker([11.717342,	8.227209], {icon: myIcon}).addTo(map);
+// L.marker([11.5364,	8.157438], {icon: myIcon}).addTo(map);
+// L.marker([11.750472,	8.205568], {icon: myIcon}).addTo(map);
+
+
+  // Map coordinate display
+  map.on('mousemove',function(e){
+        console.log(e)
+        $('.coordinate').html(`Lat: ${e.latlng.lat} Lng: ${e.latlng.lng}`)
+    })
+
+
+    L.control.browserPrint().addTo(map);
+
+
+
+
+//Geojson load
+var marker = L.markerClusterGroup();
+var taji = L.geoJSON(data, {
+    onEachFeature: function (feature, layer) {
+        layer.bindPopup(feature.properties.COMMUNITY)
+    }
+});
+taji.addTo(marker);
+marker.addTo(map)
+
+//Leaflet layer control
+var baseMaps = {
+    'OSM': osm,
+    'Topo Map': TopoMap,
+    'OpenStreetMap': OpenStreetMap
+}
+
+var overlayMaps = {
+    'GeoJSON Markers': marker
+}
+
+L.control.layers(baseMaps, overlayMaps).addTo(map);
+
+//Leaflet search
+L.Control.geocoder().addTo(map);
+
+//zoom to layer
+$('.zoom-to-layer').click(function(){
+    map.setView([12.0022, 8.5920], 10)
+})
+
+    </script>
